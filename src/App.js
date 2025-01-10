@@ -16,13 +16,11 @@ class App extends Component {
     this.setState((prevState) => ({ count: prevState.count - 1 }));
   };
 
-  
-
   render() {
     return (
       <div style={{ textAlign: 'center', marginTop: '50px' }}>
         <h1>Counter App</h1>
-        <h2>{this.state.count}</h2>
+        <h2>Count: {this.state.count}</h2>
         <button onClick={this.increment}>Increment</button>
         <button onClick={this.decrement} style={{ margin: '0 10px' }}>
           Decrement
