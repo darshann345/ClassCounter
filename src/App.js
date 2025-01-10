@@ -1,33 +1,47 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 0,
-    };
-  }
+const App = () => {
+  const [searchWord, setSearchWord] = useState("");
+  const [result, setResult] = useState("");
+  const [dictionary] = useState([
+    { word: "React", meaning: "A JavaScript library for building user interfaces." },
+    { word: "Component", meaning: "A reusable building block in React." },
+    { word: "State", meaning: "An object that stores data for a component." },
+  ]);
 
-  increment = () => {
-    this.setState((prevState) => ({ count: prevState.count + 1 }));
-  };
-
-  decrement = () => {
-    this.setState((prevState) => ({ count: prevState.count - 1 }));
-  };
-
-  render() {
-    return (
-      <div style={{ textAlign: 'center', marginTop: '50px' }}>
-        <h1>Counter App</h1>
-        <h2>Count: {this.state.count}</h2>
-        <button onClick={this.increment}>Increment</button>
-        <button onClick={this.decrement} style={{ margin: '0 10px' }}>
-          Decrement
-        </button>
-      </div>
+  const handleSearch = () => {
+    if (searchWord.trim() === "") {
+      setResult("Word not found in the dictionary");
+      return;
+    }
+    const foundWord = dictionary.find(
+      (item) => item.word.toLowerCase() === searchWord.toLowerCase()
     );
-  }
-}
+    if (foundWord) {
+      setResult(foundWord.meaning);
+    } else {
+      setResult("Word not found in the dictionary");
+    }
+  };
+
+  return (
+    <>
+      <div>
+        <h1>Dictionary App</h1>
+        <input
+          type="text"
+          value={searchWord}
+          placeholder="Search for a word"
+          onChange={(e) => setSearchWord(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+
+        {/* Always render the Definition label */}
+        <h5>Definition:</h5>
+        {result && <p>{result}</p>}
+      </div>
+    </>
+  );
+};
 
 export default App;
